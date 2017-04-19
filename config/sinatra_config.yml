@@ -1,0 +1,6 @@
+host:
+  localhost
+port:
+  '9292'
+files:
+  - views/*
