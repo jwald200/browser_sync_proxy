@@ -10,9 +10,9 @@ module BrowserSyncProxy
 
       options = Psych.load_file @config_file
 
-      @host = options['host']
-      @port = options['port']
-      @files = options['files'].join(', ')
+      @host = options[:host]
+      @port = options[:port]
+      @files = options[:files].join(', ')
     end
 
     private

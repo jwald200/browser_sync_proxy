@@ -1,16 +1,16 @@
-require 'spec_helper'
-
 describe BrowserSyncProxy::OptionsBuilder do
-  describe 'default option given' do
-    it 'sets to sinatra defaults when initialize with :sinatra' do
+  context ':sinatra option given' do
+    it 'sets to sinatra defaults' do
       options = BrowserSyncProxy::OptionsBuilder.new :sinatra
 
       expect(options.host).to eq 'localhost'
       expect(options.port).to eq '9292'
       expect(options.files).to eq 'views/*'
     end
+  end
 
-    it 'sets to rails defaults when initialize with :rails' do
+  context ':rails option given' do
+    it 'sets to rails defaults' do
       options = BrowserSyncProxy::OptionsBuilder.new :rails
 
       expect(options.host).to eq 'localhost'
@@ -19,12 +19,27 @@ describe BrowserSyncProxy::OptionsBuilder do
     end
   end
 
-  describe 'no default_option given' do
-    it 'sets values to user config file' do
+  context 'no default option given' do
+    let(:options) { BrowserSyncProxy::OptionsBuilder.new }
+    let(:user_config_file) { "browser-sync-proxy.yml" }
+    
+    around(:example) do |example|
+      delete_file user_config_file
+      example.run
+      delete_file user_config_file
     end
-  end
 
-  describe 'no default option and no config file' do
+    it 'sets values to user config file if config file present' do
+      settings = {host: 'localhost', port: '4000', files: ['views']}.to_yaml
+      File.write(user_config_file, settings)
 
+      expect(options.host).to eq('localhost')
+      expect(options.port).to eq('4000')
+      expect(options.files).to eq('views')
+    end
+
+    it 'values remain nil when no user-config and no default option given' do
+      expect([options.host, options.port, options.files]).to all be nil
+    end
   end
 end

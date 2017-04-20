@@ -1,6 +1,6 @@
-host:
+:host:
   localhost
-port:
+:port:
   '9292'
-files:
+:files:
   - views/*

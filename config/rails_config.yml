@@ -1,7 +1,7 @@
-host:
+:host:
   localhost
-port:
+:port:
   '3000'
-files:
+:files:
   - app/assets
   - app/views
