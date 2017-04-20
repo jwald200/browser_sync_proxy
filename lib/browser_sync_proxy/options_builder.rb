@@ -21,7 +21,7 @@ module BrowserSyncProxy
       if %i(sinatra rails).include? default_option
         @config_file = File.join(File.dirname(__FILE__), "../../config/#{default_option}_config.yml")
       else
-        @config_file = './browser-sync-proxy.yml'
+        @config_file = 'browser_sync_proxy.yml'
       end
     end
   end

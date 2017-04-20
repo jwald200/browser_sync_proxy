@@ -21,8 +21,8 @@ describe BrowserSyncProxy::OptionsBuilder do
 
   context 'no default option given' do
     let(:options) { BrowserSyncProxy::OptionsBuilder.new }
-    let(:user_config_file) { "browser-sync-proxy.yml" }
-    
+    let(:user_config_file) { "browser_sync_proxy.yml" }
+
     around(:example) do |example|
       delete_file user_config_file
       example.run

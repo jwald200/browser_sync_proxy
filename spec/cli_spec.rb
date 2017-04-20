@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe BrowserSyncProxy::CLI do
 
   it 'will error if no args given'  do
