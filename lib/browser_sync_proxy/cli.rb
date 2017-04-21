@@ -8,12 +8,14 @@ module BrowserSyncProxy
     def start
       case @argument
       when :setup
-        BrowserSyncProxy::Setup.start
+        BrowserSyncProxy::Setup.run
       else
         options = BrowserSyncProxy::OptionsBuilder.new(@argument)
 
         if [options.host, options.port, options.files].any?(&:nil?)
-          puts 'we werent able to get the options pls use 1 of the...'
+          puts 'You don\'t have a config file in the root of your project'
+          puts ''
+
         else
           BrowserSyncProxy::Runner.start(options)
         end
