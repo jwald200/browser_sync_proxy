@@ -1,5 +1,7 @@
 module BrowserSyncProxy
   class Setup
+    include ::Questionable
+
     attr_reader :config
 
     def run
@@ -7,7 +9,10 @@ module BrowserSyncProxy
         gather_config_from_user
         print_config
 
-        break if yes?('Sould we save it? (y/n) Type n to start over.')
+        answer = ask(question: 'Sould we save it? (y/n) or quit to exit').downcase
+
+        return if answer == 'quit'
+        break if ['y', 'yes'].include? answer
       end
 
       save_to_file
@@ -48,34 +53,13 @@ module BrowserSyncProxy
       puts 'Here is what we have:'
 
       config.each do |key, value|
-        puts "#{key}: #{value}"
+        puts "#{key}: #{value.colorize(:green)}"
       end
     end
 
     def save_to_file
       File.write('browser_sync_proxy.yml', config.to_yaml)
-      puts Rainbow('Your configurations where saved to browser_sync_proxy.yml').color :green
-    end
-
-    def ask(question:, validate: nil, error_message: nil)
-      question.end_with?(' ') ? print(question) : puts(question)
-      answer = gets.chomp
-
-      if validate.class == Regexp
-        loop do
-          break if answer.match(validate)
-
-          puts error_message
-          answer = gets.chomp
-        end
-      end
-
-      answer
-    end
-
-    def yes?(question)
-      answer = ask(question: question)
-      ['y', 'yes'].include? answer.downcase
+      puts ('Your configurations where saved to browser_sync_proxy.yml').colorize :green
     end
   end
 end

@@ -1,4 +1,4 @@
 require 'require_all'
-require 'rainbow'
+require 'colorize'
 
-require_all 'lib'
+require_rel '../lib'

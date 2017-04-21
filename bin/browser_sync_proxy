@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+path = File.expand_path('../../config/environment', __FILE__)
 require_relative '../config/environment'
 
 BrowserSyncProxy::CLI.new(ARGV).start

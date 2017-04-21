@@ -13,12 +13,18 @@ module BrowserSyncProxy
         options = BrowserSyncProxy::OptionsBuilder.new(@argument)
 
         if [options.host, options.port, options.files].any?(&:nil?)
-          puts 'You don\'t have a config file in the root of your project'
-          puts ''
+          msg = <<~MSG
+                  #{"You don't have config file setup.".colorize(:red)}
 
-        else
-          BrowserSyncProxy::Runner.start(options)
+                  Type `browser_sync_proxy setup`
+                  or use a default option Like:
+                  `browser_sync_proxy --rails` or `browser_sync_proxy --sinatra`
+                MSG
+
+          abort msg
         end
+
+        BrowserSyncProxy::Runner.start(options)
       end
     end
   end
