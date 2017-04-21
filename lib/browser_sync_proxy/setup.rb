@@ -29,7 +29,7 @@ module BrowserSyncProxy
       ask(
         question: 'Please enter your host name. For example, localhost ',
         validate: /.+/,
-        error_message: "host can't be empty."
+        error_message: "host can't be empty. "
       )
     end
 
@@ -37,7 +37,7 @@ module BrowserSyncProxy
       ask(
         question: 'Please enter the port number ',
         validate: /\A\d{4,}\Z/,
-        error_message: "Please enter a valid port number."
+        error_message: "Please enter a valid port number. "
       )
     end
 
@@ -45,22 +45,22 @@ module BrowserSyncProxy
       ask(
         question: "Directories to track  (comma sep list)  ",
         validate: /.+/,
-        error_message: 'Directories can\'t be empty.'
+        error_message: 'Directories can\'t be empty. '
       ).split(/,\s*/)
     end
 
     def print_config
-      puts 'Here is what we have:'
+      say 'Here is what we have:'
 
       config.each do |key, value|
         value = value.join(', ') if key == :directories
-        puts "#{key}: #{value.colorize(:green)}"
+        say "#{key}: #{value.colorize(:green)}"
       end
     end
 
     def save_to_file
       File.write('browser_sync_proxy.yml', config.to_yaml)
-      puts ('Your configurations where saved to browser_sync_proxy.yml').colorize :green
+      say 'Your configurations where saved to browser_sync_proxy.yml', :green
     end
   end
 end
