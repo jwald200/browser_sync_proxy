@@ -5,7 +5,7 @@ describe BrowserSyncProxy::OptionsBuilder do
 
       expect(options.host).to eq 'localhost'
       expect(options.port).to eq '9292'
-      expect(options.files).to eq 'views/*'
+      expect(options.directories).to eq 'views/*'
     end
   end
 
@@ -15,7 +15,7 @@ describe BrowserSyncProxy::OptionsBuilder do
 
       expect(options.host).to eq 'localhost'
       expect(options.port).to eq '3000'
-      expect(options.files).to eq 'app/assets, app/views'
+      expect(options.directories).to eq 'app/assets, app/views'
     end
   end
 
@@ -30,16 +30,16 @@ describe BrowserSyncProxy::OptionsBuilder do
     end
 
     it 'sets values to user config file if config file present' do
-      settings = {host: 'localhost', port: '4000', files: ['views']}.to_yaml
+      settings = {host: 'localhost', port: '4000', directories: ['views']}.to_yaml
       File.write(user_config_file, settings)
 
       expect(options.host).to eq('localhost')
       expect(options.port).to eq('4000')
-      expect(options.files).to eq('views')
+      expect(options.directories).to eq('views')
     end
 
     it 'values remain nil when no user-config and no default option given' do
-      expect([options.host, options.port, options.files]).to all be nil
+      expect([options.host, options.port, options.directories]).to all be nil
     end
   end
 end

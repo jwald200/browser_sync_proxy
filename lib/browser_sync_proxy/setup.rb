@@ -53,6 +53,7 @@ module BrowserSyncProxy
       puts 'Here is what we have:'
 
       config.each do |key, value|
+        value = value.join(', ') if key == :directories
         puts "#{key}: #{value.colorize(:green)}"
       end
     end

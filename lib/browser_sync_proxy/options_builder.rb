@@ -2,17 +2,16 @@ require 'psych'
 
 module BrowserSyncProxy
   class OptionsBuilder
-    attr_reader :host, :port, :files
+    attr_reader :host, :port, :directories
 
     def initialize(default_option = nil)
       set_config_file(default_option)
       return unless File.exist? @config_file
-
       options = Psych.load_file @config_file
 
       @host = options[:host]
       @port = options[:port]
-      @files = options[:files].join(', ')
+      @directories = options[:directories].join(', ')
     end
 
     private

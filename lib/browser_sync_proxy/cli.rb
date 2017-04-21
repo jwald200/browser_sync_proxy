@@ -8,11 +8,11 @@ module BrowserSyncProxy
     def start
       case @argument
       when :setup
-        BrowserSyncProxy::Setup.run
+        BrowserSyncProxy::Setup.new.run
       else
         options = BrowserSyncProxy::OptionsBuilder.new(@argument)
 
-        if [options.host, options.port, options.files].any?(&:nil?)
+        if [options.host, options.port, options.directories].any?(&:nil?)
           msg = <<~MSG
                   #{"You don't have config file setup.".colorize(:red)}
 

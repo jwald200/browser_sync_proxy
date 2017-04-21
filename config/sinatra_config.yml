@@ -2,5 +2,5 @@
   localhost
 :port:
   '9292'
-:files:
+:directories:
   - views/*
