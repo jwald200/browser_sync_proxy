@@ -3,9 +3,7 @@ describe BrowserSyncProxy::OptionsBuilder do
     it 'sets to sinatra defaults' do
       options = BrowserSyncProxy::OptionsBuilder.new :sinatra
 
-      expect(options.host).to eq 'localhost'
-      expect(options.port).to eq '9292'
-      expect(options.directories).to eq 'views/*'
+      expect(options.values).to eq(['localhost', '9292', 'views/*'])
     end
   end
 
@@ -13,9 +11,7 @@ describe BrowserSyncProxy::OptionsBuilder do
     it 'sets to rails defaults' do
       options = BrowserSyncProxy::OptionsBuilder.new :rails
 
-      expect(options.host).to eq 'localhost'
-      expect(options.port).to eq '3000'
-      expect(options.directories).to eq 'app/assets, app/views'
+      expect(options.values).to eq ['localhost', '3000', 'app/assets, app/views']
     end
   end
 
@@ -33,13 +29,11 @@ describe BrowserSyncProxy::OptionsBuilder do
       settings = {host: 'localhost', port: '4000', directories: ['views']}.to_yaml
       File.write(user_config_file, settings)
 
-      expect(options.host).to eq('localhost')
-      expect(options.port).to eq('4000')
-      expect(options.directories).to eq('views')
+      expect(options.values).to eq ['localhost', '4000', 'views']
     end
 
     it 'values remain nil when no user-config and no default option given' do
-      expect([options.host, options.port, options.directories]).to all be nil
+      expect(options.values).to all be nil
     end
   end
 end

@@ -53,9 +53,6 @@ describe Questionable do
 
         expect(FakeIO.captured_output.last).to eq error_message
       end
-
-
     end
-
   end
 end

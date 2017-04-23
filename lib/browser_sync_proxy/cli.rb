@@ -1,4 +1,8 @@
 module BrowserSyncProxy
+  # TODO: help method
+  # option to name the setting and print to user which settings are being used
+  # refactor CLI
+  # refactor OptionsBuilder to return array
   class CLI
     def initialize(args)
       @argument = args.first
