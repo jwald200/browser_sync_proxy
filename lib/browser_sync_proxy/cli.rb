@@ -1,35 +1,31 @@
 module BrowserSyncProxy
   # TODO: help method
   # option to name the setting and print to user which settings are being used
-  # refactor CLI
-  # refactor OptionsBuilder to return array
-  class CLI
-    def initialize(args)
-      @argument = args.first
-      @argument = @argument.gsub('-', '').to_sym if @argument
+  class CLI < Thor
+    default_task :start
+
+    desc "setup", "setup a new config file"
+    def setup
+      Setup.new.run
     end
 
+    option :rails, type: :boolean
+    option :sinatra, type: :boolean
+    desc "start DEFAULT_OPTION", 'start browser-sync. You can also provide --rails or --sinatra'
     def start
-      case @argument
-      when :setup
-        BrowserSyncProxy::Setup.new.run
-      else
-        options = BrowserSyncProxy::OptionsBuilder.new(@argument)
+      options_builder = OptionsBuilder.new(options.keys.first&.to_sym)
 
-        if [options.host, options.port, options.directories].any?(&:nil?)
-          msg = <<~MSG
-                  #{"You don't have a config file setup.".colorize(:red)}
+      if options_builder.values.any?(&:nil?)
+        abort <<~MSG
+                #{"You don't have a config file setup.".colorize(:red)}
 
-                  Type `browser_sync_proxy setup`
-                  or use a default option Like:
-                  `browser_sync_proxy --rails` or `browser_sync_proxy --sinatra`
-                MSG
-
-          abort msg
-        end
-
-        BrowserSyncProxy::Runner.start(options)
+                Type `browser_sync_proxy setup`
+                or use a default option Like:
+                `browser_sync_proxy --rails` or `browser_sync_proxy --sinatra`
+              MSG
       end
+
+      Runner.start(*options_builder.values)
     end
   end
 end
