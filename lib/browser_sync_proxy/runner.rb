@@ -1,7 +1,7 @@
 module BrowserSyncProxy
   class Runner
-    def self.start(options)
-      system "browser-sync start --proxy #{options.host}:#{options.port} --files '#{options.directories}'"
+    def self.start(host, port, directories)
+      system "browser-sync start --proxy #{host}:#{port} --files '#{directories}'"
     end
   end
 end
