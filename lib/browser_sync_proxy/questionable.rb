@@ -9,7 +9,7 @@ module Questionable
       loop do
         break if user_input.match(validate)
 
-        say error_message
+        say(error_message || "must match /#{validate.source}/")
         get_input
       end
     end
@@ -19,10 +19,14 @@ module Questionable
 
   def say(message, color = nil)
     message = message.colorize(color) if color
-    message.end_with?(' ') ? print(message) : puts(message)
+    message.end_with?(' ') ? $stdout.print(message) : $stdout.puts(message)
   end
+
+  private
 
   def get_input
     @user_input = $stdin.gets.chomp
   end
 end
+
+include Questionable

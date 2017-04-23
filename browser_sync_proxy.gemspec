@@ -6,7 +6,7 @@ require 'browser_sync_proxy/version'
 Gem::Specification.new do |spec|
   spec.name          = "browser_sync_proxy"
   spec.version       = BrowserSyncProxy::VERSION
-  spec.authors       = ["jwald1"]
+  spec.authors       = ["jwald200"]
   spec.email         = ["email@example.com"]
 
   spec.summary       = %q{Write a short summary, because Rubygems requires one.}

@@ -14,7 +14,7 @@ module BrowserSyncProxy
 
         if [options.host, options.port, options.directories].any?(&:nil?)
           msg = <<~MSG
-                  #{"You don't have config file setup.".colorize(:red)}
+                  #{"You don't have a config file setup.".colorize(:red)}
 
                   Type `browser_sync_proxy setup`
                   or use a default option Like:

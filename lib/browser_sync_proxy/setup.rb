@@ -1,7 +1,5 @@
 module BrowserSyncProxy
   class Setup
-    include ::Questionable
-
     attr_reader :config
 
     def run
