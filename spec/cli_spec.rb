@@ -35,5 +35,14 @@ describe BrowserSyncProxy::CLI do
       end
     end
 
+
+  end
+
+  describe '#version' do
+    let(:output) { capture_output {subject.version}.first }
+    
+    it 'prints the version number' do
+      expect(output).to include('Browser_sync_proxy version')
+    end
   end
 end

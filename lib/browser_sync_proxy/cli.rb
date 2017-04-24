@@ -27,5 +27,11 @@ module BrowserSyncProxy
 
       Runner.start(*options_builder.values)
     end
+
+    desc "version", "Prints the browser_sync_proxy's version information"
+    def version
+      say "Browser_sync_proxy version #{VERSION}"
+    end
+    map %w(-v --version) => :version
   end
 end
