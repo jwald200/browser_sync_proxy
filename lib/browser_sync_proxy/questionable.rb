@@ -25,7 +25,7 @@ module Questionable
   private
 
   def get_input
-    @user_input = $stdin.gets.chomp
+    @user_input = $stdin.gets&.chomp
   end
 end
 

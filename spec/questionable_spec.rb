@@ -16,42 +16,38 @@ describe Questionable do
   end
 
   describe '#ask' do
-    before(:example) do |example|
-      $stdout = StringIO.new
-      $stdin = StringIO.new(' ')
-    end
-
-    after(:example) do
-      $stdin = STDIN
-      $stdout = STDOUT
-    end
-
     it 'outputs to stdout the question' do
       msg = "What's your name?"
 
-      subject.ask question: msg
-      expect(FakeIO.captured_output.first).to eq(msg)
+      output = capture_output { subject.ask question: msg }
+      expect(output.first).to eq(msg)
     end
 
     context 'with valitation' do
-      before(:example) { FakeIO.set_user_input "go home", "hello" }
+      let(:input) { ['some text', 'hello'] }
+      let(:output_1) do
+        capture_output(input) do
+          subject.ask(question: "What's your name?", validate: /\Ahello\Z/)
+        end
+      end
 
       it 'outputs standart error message when custom error not given' do
-        subject.ask(question: "What's your name?", validate: /\Ahello\Z/)
+        expect(output_1.last).to eq("must match /\\Ahello\\Z/")
+      end
 
-        expect(FakeIO.captured_output.last).to eq("must match /\\Ahello\\Z/")
+      let(:error_message) { 'You must enter hello' }
+      let(:output_2) do
+        capture_output(input) do
+          subject.ask(
+            question: "What's your name?",
+            validate: /\Ahello\Z/,
+            error_message: error_message
+          )
+        end
       end
 
       it 'outputs custom error message' do
-        error_message = 'You must enter hello'
-
-        subject.ask(
-          question: "What's your name?",
-          validate: /\Ahello\Z/,
-          error_message: error_message
-        )
-
-        expect(FakeIO.captured_output.last).to eq error_message
+        expect(output_2.last).to eq error_message
       end
     end
   end
