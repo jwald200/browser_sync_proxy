@@ -13,3 +13,11 @@ def capture_output(*input)
 ensure
   $stdout, $stdin = STDOUT, STDIN
 end
+
+def capture_stderr
+  $stderr = StringIO.new
+  yield
+  $stderr.string
+ensure
+  $stderr = STDERR
+end

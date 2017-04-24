@@ -1,24 +1,39 @@
 describe BrowserSyncProxy::CLI do
   describe '#setup' do
     it 'starts the setup' do
-      setup = BrowserSyncProxy::Setup.new
-      expect(setup).to receive(:run)
-      expect(subject).to receive(:setup)
-      subject.setup
+      input = ['localhost', '3333', 'files', 'quit']
+      output = capture_output(input) { subject.setup }
+
+      expect(output.first).to include('Please enter your host')
     end
   end
 
-  xdescribe '#start' do
-    it 'errors if no config found' do
-
+  describe '#start' do
+    context 'no config found' do
+      it 'exit with error' do
+        expect { capture_stderr {subject.start} }.to raise_error(SystemExit)
+      end
     end
 
-    it 'starts browser-sync with sinatra defaults if --sinatra given' do
+    context 'sinatra option given' do
+      let(:cmd) {"browser-sync start --proxy localhost:9292 --files 'views/*'"}
+      it 'starts browser-sync with sinatra defaults' do
+        expect(BrowserSyncProxy::Runner).to receive(:system).with(cmd)
 
+        subject.options = {'sinatra' => true}
+        subject.start
+      end
     end
 
-    it 'starts browser-sync with rails defaults if --rails given' do
+    context 'rails option given' do
+      let(:cmd) {"browser-sync start --proxy localhost:3000 --files 'app/assets, app/views'"}
+      it 'starts browser-sync with rails defaults' do
+        expect(BrowserSyncProxy::Runner).to receive(:system).with(cmd)
 
+        subject.options = {'rails' => true}
+        subject.start
+      end
     end
+
   end
 end
