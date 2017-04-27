@@ -28,6 +28,8 @@ This will prompt you to enter your host, port, and directories/files you want to
 hit y to confirm. This will create a file
 called `browser_sync_proxy.yml` in your directory.
 
+![Setup Demo](images/setup_demo.gif)
+
 ## Usage
 
 Start your server as usual, for example `rails server`. Once your server is up,
@@ -42,7 +44,7 @@ There are also a default option for Rails and Sinatra
 The rails defaults are localhost:3000 and watched files app/views, app/assets.
 Sinatra defaults are localhost:9292 and watched files views/*
 
-![Usage Demo](images/Browser_sync_proxy_demo.gif)
+![Usage Demo](images/browser_sync_proxy_demo.gif)
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jwald200/browser_sync_proxy. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
