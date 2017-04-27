@@ -25,26 +25,26 @@ module BrowserSyncProxy
 
     def host_prompt
       ask(
-        question: 'Please enter your host name. For example, localhost ',
+        question: 'Please enter your host name. For example, localhost:',
         validate: /.+/,
-        error_message: "host can't be empty. "
+        error_message: "host can't be empty."
       )
     end
 
     def port_prompt
       ask(
-        question: 'Please enter the port number ',
+        question: 'Please enter the port number:',
         validate: /\A\d{4,}\Z/,
-        error_message: "Please enter a valid port number. "
+        error_message: "Please enter a valid port number."
       )
     end
 
     def directories_prompt
       ask(
-        question: "Directories to track  (comma sep list)  ",
+        question: "Directories to track  (comma sep list):",
         validate: /.+/,
-        error_message: 'Directories can\'t be empty. '
-      ).split(/,\s*/)
+        error_message: 'Directories can\'t be empty.'
+      ).gsub(/'|"/, '').split(/,\s*/)
     end
 
     def print_config

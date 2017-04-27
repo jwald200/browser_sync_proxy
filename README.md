@@ -1,40 +1,51 @@
 [![Build Status](https://travis-ci.org/jwald200/browser_sync_proxy.svg?branch=master)](https://travis-ci.org/jwald200/browser_sync_proxy)
 
-# BrowserSyncProxy
+# browser_sync_proxy
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/browser_sync_proxy`. To experiment with that code, run `bin/console` for an interactive prompt.
+`browser_sync_proxy` eases the usage of [browser-sync](https://www.browsersync.io/) with your dynamic application.
+You can probably use it with any application (besides Ruby), but I use it with Sinatra and Rails.
 
-TODO: Delete this and the text above, and describe your gem
+## Prerequisites
+
+Please verify that you have `node` installed by typing `node -v`. If you do not have it installed, please visit
+https://nodejs.org/en/ for installation instructions.
+
+Please check that you have [browser-sync](https://www.browsersync.io/) by typing `browser-sync -v`.
+If you don't, type `npm install -g browser-sync`.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'browser_sync_proxy'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
     $ gem install browser_sync_proxy
+
+
+
+## Custom Setup
+To configure your application type:
+
+    bsync setup
+
+This will prompt you to enter your host, port, and directories/files you want to watch.
+hit y to confirm. This will create a file
+called `browser_sync_proxy.yml` in your directory.
 
 ## Usage
 
-TODO: Write usage instructions here
+Start your server as usual, for example `rails server`. Once your server is up,
+open a new terminal tab/window. If you have a custom configuration setup type:
 
-## Development
+    bsync
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+There are also a default option for Rails and Sinatra
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    bsync --rails | bsync --sinatra
 
+The rails defaults are localhost:3000 and watched files app/views, app/assets.
+Sinatra defaults are localhost:9292 and watched files views/*
+
+![Usage Demo](images/Browser_sync_proxy_demo.gif)
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/browser_sync_proxy. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jwald200/browser_sync_proxy. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

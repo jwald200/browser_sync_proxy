@@ -1,17 +1,15 @@
 module BrowserSyncProxy
-  # TODO: help method
-  # option to name the setting and print to user which settings are being used
   class CLI < Thor
     default_task :start
 
-    desc "setup", "setup a new config file"
+    desc "setup", "sets up a new config file"
     def setup
       Setup.new.run
     end
 
     option :rails, type: :boolean
     option :sinatra, type: :boolean
-    desc "start DEFAULT_OPTION", 'start browser-sync. You can also provide --rails or --sinatra'
+    desc "start [OPTIONS]", 'starts browser-sync. You can also provide --rails or --sinatra'
     def start
       options_builder = OptionsBuilder.new(options.keys.first&.to_sym)
 
@@ -19,9 +17,9 @@ module BrowserSyncProxy
         abort <<~MSG
                 #{"You don't have a config file setup.".colorize(:red)}
 
-                Type `browser_sync_proxy setup`
+                Type `bsync setup`
                 or use a default option Like:
-                `browser_sync_proxy --rails` or `browser_sync_proxy --sinatra`
+                `bsync --rails` or `bsync --sinatra`
               MSG
       end
 
