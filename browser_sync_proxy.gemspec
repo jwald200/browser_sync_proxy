@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
 
+  spec.required_ruby_version = ">= 2.3.0"
+
   spec.bindir        = "bin"
   spec.executables   = %w(bsync browser_sync_proxy)
   spec.require_paths = ["lib"]
